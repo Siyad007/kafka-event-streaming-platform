@@ -21,7 +21,73 @@ A full-stack event streaming platform demonstrating microservices architecture w
 - 📈 **Real-time monitoring** (Prometheus + Grafana)
 - 🐳 **Fully containerized** with Docker
 - 🎯 **Production-ready** patterns and best practices
+## 📸 Screenshots
 
+### 🎨 Frontend Dashboard
+
+Real-time analytics dashboard with live event tracking and beautiful UI.
+
+![Frontend UI](screenshots/frontend-ui.png.png)
+
+*Interactive dashboard showing real-time event metrics and analytics*
+
+---
+
+### 📊 Analytics Breakdown
+
+Live event distribution with progress bars and percentage calculations.
+
+![Analytics Dashboard](screenshots/analytics-dashboard.png)
+
+*Event analytics with color-coded progress bars updating in real-time*
+
+---
+
+### 💻 Backend Processing
+
+Backend console showing real-time event processing through Kafka.
+
+![Backend Console](screenshots/backend-console.png)
+
+*Spring Boot backend logs showing event flow: Producer → Kafka → Consumer → Database*
+
+---
+
+### 🗄️ Cloud Database (NeonDB)
+
+All events persisted in serverless PostgreSQL cloud database.
+
+![NeonDB Data](screenshots/neondb-data.png)
+
+*SQL query results showing 100+ events stored in NeonDB cloud database*
+
+---
+
+### 📈 Additional Views
+
+#### Alternative Frontend View
+![Frontend UI 2](screenshots/frontend-ui-2.png)
+
+#### Database Analytics
+![NeonDB Analytics](screenshots/neondb-data-2.png)
+
+*Query results showing event distribution and aggregations*
+
+---
+
+## 🎬 Live Demo
+
+**What happens when you click a button:**
+
+1. ⚡ **Frontend** sends event instantly (<50ms)
+2. 🔄 **Kafka** queues the event (5ms)
+3. 🖥️ **Backend** processes through consumer (30ms)
+4. 💾 **Database** saves to NeonDB cloud (100ms)
+5. 📊 **Analytics** updates dashboard (real-time)
+
+**Total end-to-end: <200ms**
+
+All visible in the screenshots above! ✨
 ## 🛠️ Tech Stack
 
 ### Backend
