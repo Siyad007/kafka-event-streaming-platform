@@ -1,0 +1,95 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: ProducerConsumer
+  
+  # ✅ NeonDB PostgreSQL Configuration
+  # INSTRUCTIONS:
+  # 1. Sign up at https://neon.tech (FREE)
+  # 2. Create a new project
+  # 3. Copy your connection details
+  # 4. Replace placeholders below with YOUR actual values
+  # 5. Rename this file to application.yml
+  datasource:
+    url: jdbc:postgresql://YOUR-NEONDB-HOST.neon.tech/neondb?sslmode=require
+    username: YOUR-NEONDB-USERNAME
+    password: YOUR-NEONDB-PASSWORD
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+      connection-timeout: 30000
+  
+  # JPA/Hibernate Configuration
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  
+  # Kafka Configuration (No changes needed - uses localhost)
+  kafka:
+    bootstrap-servers: localhost:9092
+    
+    # Producer Configuration
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      retries: 3
+      properties:
+        linger.ms: 1
+        buffer.memory: 33554432
+        max.block.ms: 10000
+        request.timeout.ms: 10000
+    
+    # Consumer Configuration
+    consumer:
+      group-id: metrics-consumer-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      properties:
+        session.timeout.ms: 30000
+        heartbeat.interval.ms: 3000
+        request.timeout.ms: 30000
+
+# Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.example.ProducerConsumer: DEBUG
+    org.springframework.kafka: INFO
+    org.apache.kafka: WARN
+    org.hibernate.SQL: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"

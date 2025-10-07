@@ -1,0 +1,84 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.1'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.example'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = '21'
+    targetCompatibility = '21'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Boot Web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    
+    // Spring Kafka
+    implementation 'org.springframework.kafka:spring-kafka'
+    
+    // Actuator for monitoring
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    
+    // Micrometer Prometheus
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    
+    // Prometheus Client (for custom metrics)
+    implementation 'io.prometheus:simpleclient:0.16.0'
+    implementation 'io.prometheus:simpleclient_hotspot:0.16.0'
+    
+    // Lombok (optional - reduces boilerplate)
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    
+    // Spring Boot DevTools (hot reload)
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    
+    // Test dependencies
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// Ensure Java 21 compatibility
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-parameters']
+}
+
+// Custom task to display info
+tasks.register('info') {
+    doLast {
+        println """
+        ╔════════════════════════════════════════════════╗
+        ║     Kafka Producer Consumer Application       ║
+        ╚════════════════════════════════════════════════╝
+        
+        Project: ${project.name}
+        Version: ${project.version}
+        Java Version: ${java.sourceCompatibility}
+        Spring Boot Version: 3.2.1
+        
+        Commands:
+          ./gradlew bootRun          - Run application
+          ./gradlew build            - Build project
+          ./gradlew clean            - Clean build files
+          ./gradlew test             - Run tests
+        """
+    }
+}
