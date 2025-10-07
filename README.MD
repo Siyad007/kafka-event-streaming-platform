@@ -253,7 +253,6 @@ Spring Boot team for the amazing framework
 NeonDB for serverless PostgreSQL
 Open-source community for inspiration
 📧 Contact
-Your Name
-
+Muhammed Siyad
 LinkedIn: https://www.linkedin.com/in/muhammed-siyad-p/
 Email: siyadsidu760@gmail.com
